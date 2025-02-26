@@ -2,10 +2,18 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Search } from "@/components/search"
 import { Card } from "@/components/ui/card"
 import { Cloud } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export function DashboardHeader() {
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+      const interval = setInterval(() => {
+          setCurrentTime(new Date());
+      }, 1000);
+
+      return () => clearInterval(interval);
+  }, []);
 
   // Format date as "Saturday, 20 January 2024"
   const formattedDate = currentTime.toLocaleDateString("en-US", {
